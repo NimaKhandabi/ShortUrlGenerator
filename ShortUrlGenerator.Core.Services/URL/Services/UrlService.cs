@@ -1,12 +1,14 @@
 ﻿using ShortUrlGenerator.Core.Contracts;
+using ShortUrlGenerator.Core.Contracts.URL;
 using ShortUrlGenerator.Core.Domains;
+using ShortUrlGenerator.Core.Domains.URL.UrlDomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShortUrlGenerator.Core.Services
+namespace ShortUrlGenerator.Core.Services.URL.Services
 {
     public class UrlService : IUrlService
     {
@@ -31,7 +33,7 @@ namespace ShortUrlGenerator.Core.Services
                     MainUrl = mainUrl,
                     ShortedUrl = shortedUrl
                 };
-                _urlRepository.Add(model);             
+                _urlRepository.Add(model);
                 return shortedUrl;
             }
         }

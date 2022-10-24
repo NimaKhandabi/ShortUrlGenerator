@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShortUrlGenerator.Core.Domains;
+using ShortUrlGenerator.Core.Domains.URL.UrlDomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShortUrlGenerator.Core.Contracts;
+using ShortUrlGenerator.Core.Domains.URL.UrlFeatures.Commands;
+using ShortUrlGenerator.Core.Domains.URL.UrlFeatures.Queries;
 
 namespace ShortUrlGenerator.EndPoint.Controllers
 {
@@ -8,17 +11,31 @@ namespace ShortUrlGenerator.EndPoint.Controllers
     [ApiController]
     public class GetShortedUrlController : ControllerBase
     {
-        private readonly IUrlService _urlService;
+        private readonly IMediator _mediator;
 
-        public GetShortedUrlController(IUrlService urlService)
+        //private readonly IUrlService _urlService;
+
+        //public GetShortedUrlController(IUrlService urlService)
+        //{
+        //    _urlService = urlService;
+        //}
+
+
+        public GetShortedUrlController(IMediator mediator)
         {
-            _urlService = urlService;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult GetShortedAddress(string mainUrl)
+        public async Task<IActionResult> GetShortedAddress(string mainUrl)
         {
-            return Ok(_urlService.GetShortedUrl(mainUrl));
+            //return Ok(await _mediator.Send(new FindByUrlQueryModel { MainUrl = mainUrl }));
+            var shortedUrl = _mediator.Send(new FindShortedUrlByMainUrlQueryModel { MainUrl = mainUrl });
+            if (shortedUrl.Result == null)
+            {
+                shortedUrl = _mediator.Send(new AddUrlCommandModel { MainUrl = mainUrl });
+            }
+            return Ok(shortedUrl);
         }
     }
 }

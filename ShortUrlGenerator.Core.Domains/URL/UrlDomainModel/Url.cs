@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShortUrlGenerator.Core.Domains
+namespace ShortUrlGenerator.Core.Domains.URL.UrlDomainModel
 {
     public class Url
     {
